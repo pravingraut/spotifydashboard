@@ -97,8 +97,8 @@ mode_select = st.sidebar.multiselect(
 title, logo = st.columns([0.9, 0.1])
 with title:
     st.title("Spotify Data Analysis")
-with logo:
-    st.image("Black Logo.png", width = 100)
+#with logo:
+#    st.image("Black Logo.png", width = 100)
 st.markdown("####")
 
 #-------------------------------------------------------------------------------------#
