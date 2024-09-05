@@ -36,6 +36,8 @@ def get_data():
     }
     df['mode'] = df['mode'].map(mode_mapping)
 
+    df['artists'] = df['artists'].str.strip()
+
     return df
 
 df = get_data()
@@ -102,8 +104,8 @@ mode_select = st.sidebar.multiselect(
 title, logo = st.columns([0.9, 0.1])
 with title:
     st.title("Spotify Data Analysis")
-#with logo:
-#    st.image("Black Logo.png", width = 100)
+with logo:
+    st.image("Black_Logo.png", width = 100)
 st.markdown("####")
 
 #-------------------------------------------------------------------------------------#
@@ -123,7 +125,7 @@ else:
 
 def sort_and_display (x):
     if x == "Date":
-        st.dataframe(df_select.sort_values(by="year"))
+        st.dataframe(df_select.drop(columns="year").sort_index())
     else:
         st.dataframe(df_select.sort_values(by="popularity", ascending=False))
 
@@ -156,14 +158,11 @@ else:
                              "& mode == @mode_select"
                              )
 
-
-
         #df_select = df_select[df_select["artists"].str.contains('|'.join(artsep), regex = True)]
         # this is not working. Shaan, Shreya Ghoshal will not show results with Shreya Ghoshal, Shaan even when pressing all
 
         for i in artsep:
-            df_select = df_select[df_select["artists"].str.contains(fr"\b{i}\b")]
-
+            df_select = df_select[df_select["artists"].str.contains(fr"^{i}$|^{i},|,\s{i},|',\s{i}$")]
 
         sort_and_display(sort_button)
 
@@ -202,7 +201,7 @@ else:
     st.subheader(f"Top 10 Songs of {artstr}", divider=True)
 
 popularsongsdf = df_select.sort_values(by = "popularity",ascending=False).head(10)
-popularsongsdf = popularsongsdf[["year", "name", "artists", "popularity"]]
+popularsongsdf = popularsongsdf[["name", "artists", "popularity"]]
 st.dataframe(popularsongsdf)
 
 
