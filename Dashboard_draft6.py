@@ -101,11 +101,11 @@ mode_select = st.sidebar.multiselect(
 
 # ------------------------------- MAIN DASHBOARD -----------------------------------
 
-title, logo = st.columns([0.9, 0.1])
+title, logo = st.columns([0.8, 0.2])
 with title:
     st.title("Spotify Data Analysis")
 with logo:
-    st.image("Black_Logo.png", width = 100)
+    st.image("logo.jpg", width = 200)
 st.markdown("####")
 
 #-------------------------------------------------------------------------------------#
