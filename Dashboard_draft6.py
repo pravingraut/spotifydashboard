@@ -26,6 +26,11 @@ def get_data():
     }
     df['key'] = df['key'].map(key_mapping)
 
+    explicit_mapping = {
+        0: 'Non-explicit', 1: 'Explicit'
+    }
+    df['explicit'] = df['explicit'].map(explicit_mapping)
+
     mode_mapping = {
         0: 'Minor scale', 1: 'Major scale'
     }
@@ -82,8 +87,8 @@ popularity_select = st.sidebar.slider(
 
 explicit_select = st.sidebar.multiselect(
     "Explicit Songs:",
-    options = [0,1],
-    default= [0,1]
+    options = df["explicit"].unique(),
+    default= df["explicit"].unique()
 )
 
 mode_select = st.sidebar.multiselect(
@@ -283,7 +288,8 @@ df_new.columns.name = None  # Remove the columns name
 df_new = pd.melt(df_new, id_vars=['explicit'], var_name='year', value_name='count')
 
 # Create the scatter plot
-figexpli = px.scatter(df_new, x='year', y='count', color='explicit')
+figexpli = px.scatter(df_new, x='year', y='count', color='explicit', color_discrete_map={"Non-explicit": "SkyBlue", "Explicit": "BurlyWood"})
+
 st.plotly_chart(figexpli)
 
 
