@@ -162,7 +162,7 @@ else:
         # this is not working. Shaan, Shreya Ghoshal will not show results with Shreya Ghoshal, Shaan even when pressing all
 
         for i in artsep:
-            df_select = df_select[df_select["artists"].str.contains(fr"^{i}$|^{i},|,\s{i},|',\s{i}$")]
+            df_select = df_select[df_select["artists"].str.contains(fr"\b{i}\b|^{i}$|^{i},|,\s{i},|',\s{i}$")]
 
         sort_and_display(sort_button)
 
